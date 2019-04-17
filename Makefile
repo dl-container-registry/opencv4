@@ -1,6 +1,7 @@
 SHELL := bash
-CONTAINER_NAME := willprice/opencv4
-SINGULARITY_NAME := opencv4.simg
+BASE_NAME := opencv4
+CONTAINER_NAME := willprice/$(BASE_NAME)
+SINGULARITY_NAME := $(BASE_NAME).simg
 TAG := cuda-10.1-cudnn7
 
 .PHONY: all
