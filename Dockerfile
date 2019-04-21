@@ -52,8 +52,8 @@ RUN mkdir /src && cd /src && \
         -D WITH_CUDA=ON \
         -D WITH_CUBLAS=1 \
         -D CUDA_FAST_MATH=1 \
-        -D CUDA_ARCH_PTX="5.2 6.0 6.1 7.0" \
-        -D CUDA_ARCH_BIN="5.2 6.0 6.1 7.0" \
+        -D CUDA_ARCH_PTX="5.0 5.2 6.0 6.1 7.0" \
+        -D CUDA_ARCH_BIN="5.0 5.2 6.0 6.1 7.0" \
         -D ENABLE_FAST_MATH=1 \
         -D INSTALL_C_EXAMPLES=OFF \
         -D INSTALL_PYTHON_EXAMPLES=ON \
