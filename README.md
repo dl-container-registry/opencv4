@@ -1,6 +1,7 @@
 # OpenCV4 Dockerfile
-[![Build Status](https://travis-ci.com/dl-container-registry/opencv4.svg?branch=master)](https://travis-ci.com/dl-container-registry/opencv4)
 [![](https://images.microbadger.com/badges/version/willprice/opencv4.svg)](https://microbadger.com/images/willprice/opencv4 "Get your own version badge on microbadger.com")
+[![CircleCI branch](https://img.shields.io/circleci/project/github/dl-container-registry/opencv4/master.svg)](https://circleci.com/gh/dl-container-registry/opencv4)
+
 
 Built against CUDA 10.1.
 
