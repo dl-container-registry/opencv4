@@ -116,3 +116,4 @@ RUN mkdir /src && cd /src && \
 # See https://github.com/opencv/opencv/issues/6542 for more
 RUN ln -s /usr/local/cuda/lib64/libcudart.so \
           /usr/local/lib/libopencv_dep_cudart.so
+ENV LD_LIBRARY_PATH="/usr/local/lib:${LD_LIBRARY_PATH}"
