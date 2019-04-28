@@ -2,12 +2,14 @@ FROM nvidia/cuda:10.1-cudnn7-devel-ubuntu18.04
 LABEL maintainer="will.price94+docker@gmail.com"
 ARG OPENCV_VERSION=4.1.0
 
+ENV DEBIAN_FRONTEND=noninteractive
+ENV LANG=C.UTF-8
+
 # software-properties-common provides add-apt-repository needed for
 # adding PPAs
 RUN apt-get update && \
-    apt-get install -y wget software-properties-common
+    apt-get install -y wget software-properties-common apt-utils
 
-ENV DEBIAN_FRONTEND=noninteractive
 
 # libjasper-dev is not present in 18.04 so we need to add the xenial
 # (16.04) channel to install it
@@ -16,6 +18,7 @@ RUN add-apt-repository --yes --update "deb http://security.ubuntu.com/ubuntu xen
     apt-get update && \
     apt-get install -y \
         build-essential \
+        ninja-build \
         cmake \
         git \
         pkg-config \
@@ -33,6 +36,11 @@ RUN add-apt-repository --yes --update "deb http://security.ubuntu.com/ubuntu xen
         libxvidcore-dev \
         libx264-dev \
         gstreamer1.0-tools \
+        gstreamer1.0-libav \
+        gstreamer1.0-plugins-good \
+        gstreamer1.0-plugins-bad \
+        gstreamer1.0-plugins-ugly \
+        gstreamer1.0-opencv \
         libgstreamer1.0-dev \
         libgstreamer-plugins-base1.0-dev \
         libgstreamer-plugins-base1.0-0 \
@@ -59,9 +67,8 @@ RUN wget https://apt.repos.intel.com/intel-gpg-keys/GPG-PUB-KEY-INTEL-SW-PRODUCT
     apt-key add GPG-PUB-KEY-INTEL-SW-PRODUCTS-2019.PUB && \
     wget https://apt.repos.intel.com/setup/intelproducts.list -O /etc/apt/sources.list.d/intelproducts.list && \
     apt-get update && \
-    apt-get install -y libeigen3-dev intel-mkl-2019.3-062
-RUN apt-get update && \
-    apt-get install -y ninja-build
+    apt-get install -y libeigen3-dev intel-mkl-2019.3-062 && \
+    rm -rf /var/lib/apt/lists/*
 
 RUN mkdir /src && cd /src && \
     wget "https://github.com/opencv/opencv/archive/$OPENCV_VERSION.zip" -O opencv-${OPENCV_VERSION}.zip && \
@@ -78,6 +85,7 @@ RUN mkdir /src && cd /src && \
         -D CMAKE_INSTALL_PREFIX=/usr/local \
         -D OPENCV_GENERATE_PKGCONFIG=on \
         -D PYTHON3_EXECUTABLE=python3 \
+        -D BUILD_opencv_python3=ON \
         -D WITH_V4L=ON \
         -D WITH_FFMPEG=ON \
         -D WITH_GSTREAMER=ON \
